@@ -1,0 +1,26 @@
+{
+    "name": "lhduc/microhub-installer",
+    "description": "An installer for Microhub projects",
+    "authors": [
+        {
+            "name": "Duc Le",
+            "email": "lehongduc87@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "type": "composer-plugin",
+    "extra": {
+        "class": "Microhub\\Composer\\Plugin"
+    },
+    "require": {
+        "composer-plugin-api": "^1.1"
+    },
+    "require-dev": {
+        "composer/composer": "^1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Microhub\\Composer\\": "src/"
+        }
+    }
+}
