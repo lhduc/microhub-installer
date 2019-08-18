@@ -19,11 +19,14 @@ class Installer extends LibraryInstaller
     {
         list($prefix, $type) = explode('-', $package->getType());
 
+        $name = explode('/', $package->getPrettyName());
+        $name = isset($name[1]) ? $name[1] : $name[0];
+
         // If package type prefix is microhub, then check type to return install path
         if ('microhub' === $prefix) {
             switch ($type) {
                 case 'service':
-                    return 'services/'. $package->getName();
+                    return 'services/' . $name;
                 default:
                     throw new \InvalidArgumentException('Package type is not supported.');
             }
