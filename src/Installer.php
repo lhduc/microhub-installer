@@ -12,6 +12,8 @@ use Composer\Package\PackageInterface;
  */
 class Installer extends LibraryInstaller
 {
+    const LOCATION = 'sources';
+
     /**
      * {@inheritdoc}
      */
@@ -22,11 +24,18 @@ class Installer extends LibraryInstaller
         $name = explode('/', $package->getPrettyName());
         $name = isset($name[1]) ? $name[1] : $name[0];
 
+        // Some services have project name in second part. Most of cases is using same git for all projects.
+        // Then remove project name in this case.
+        $extra = $package->getExtra();
+        if (isset($extra['project'])) {
+            $name = str_replace($extra['project'] . '-', '', $name);
+        }
+
         // If package type prefix is microhub, then check type to return install path
         if ('microhub' === $prefix) {
             switch ($type) {
                 case 'service':
-                    return 'services/' . $name;
+                    return static::LOCATION . '/' . $name;
                 default:
                     throw new \InvalidArgumentException('Package type is not supported.');
             }
