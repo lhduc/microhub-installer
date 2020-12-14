@@ -13,10 +13,10 @@
         "class": "Microhub\\Composer\\Plugin"
     },
     "require": {
-        "composer-plugin-api": "^1.1"
+        "composer-plugin-api": "^2.0"
     },
     "require-dev": {
-        "composer/composer": "^1.9"
+        "composer/composer": "^2.0"
     },
     "autoload": {
         "psr-4": {
