@@ -12,7 +12,9 @@ use Composer\Package\PackageInterface;
  */
 class Installer extends LibraryInstaller
 {
-    const LOCATION = 'sources';
+		const APP_DIR = 'apps';
+    const SERVICE_DIR = 'services';   
+    const SHARE_DIR = 'libs';
 
     /**
      * {@inheritdoc}
@@ -29,13 +31,18 @@ class Installer extends LibraryInstaller
         $extra = $package->getExtra();
         if (isset($extra['project'])) {
             $name = str_replace($extra['project'] . '-', '', $name);
+            $name = str_replace($type . '-', '', $name);
         }
 
         // If package type prefix is microhub, then check type to return install path
         if ('microhub' === $prefix) {
             switch ($type) {
+                case 'application':
+                    return static::APP_DIR . '/' . $name; 
                 case 'service':
-                    return static::LOCATION . '/' . $name;
+                    return static::SERVICE_DIR . '/' . $name;
+                case 'library':
+                    return static::SHARE_DIR . '/' . $name;  
                 default:
                     throw new \InvalidArgumentException('Package type is not supported.');
             }
@@ -50,7 +57,9 @@ class Installer extends LibraryInstaller
     public function supports($packageType)
     {
         return in_array($packageType, [
+            'microhub-application',
             'microhub-service',
+            'microhub-library',
         ]);
     }
 }
