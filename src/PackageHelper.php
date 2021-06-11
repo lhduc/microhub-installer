@@ -27,8 +27,9 @@ class PackageHelper
             $vendor = '';
             $name = $prettyName;
         }
+        $shortName = static::getNameFromPackage($package);
 
-        $availableVars = compact('name', 'vendor');
+        $availableVars = compact('name', 'shortName', 'vendor');
 
         $extra = $package->getExtra();
         if (!empty($extra['installer-name'])) {
