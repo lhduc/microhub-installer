@@ -10,22 +10,33 @@ use Composer\Plugin\PluginInterface;
  * Class Plugin
  * @package Microhub\Composer
  */
-class Plugin implements PluginInterface
+class ServicePlugin implements PluginInterface
 {
+    private $installer;
+
     /**
      * @param Composer $composer
      * @param IOInterface $io
      */
     public function activate(Composer $composer, IOInterface $io)
     {
-        $installer = new Installer($io, $composer);
-        $composer->getInstallationManager()->addInstaller($installer);
+        $this->installer = new ServiceInstaller($io, $composer);
+        $composer->getInstallationManager()->addInstaller($this->installer);
     }
 
+    /**
+     * @param Composer $composer
+     * @param IOInterface $io
+     */
     public function deactivate(Composer $composer, IOInterface $io)
     {
+        $composer->getInstallationManager()->removeInstaller($this->installer);
     }
 
+    /**
+     * @param Composer $composer
+     * @param IOInterface $io
+     */
     public function uninstall(Composer $composer, IOInterface $io)
     {
     }

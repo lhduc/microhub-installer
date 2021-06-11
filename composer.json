@@ -10,7 +10,10 @@
     "license": "MIT",
     "type": "composer-plugin",
     "extra": {
-        "class": "Microhub\\Composer\\Plugin"
+        "class": [
+            "Microhub\\Composer\\ServicePlugin",
+            "Microhub\\Composer\\LibraryPlugin"
+        ]
     },
     "require": {
         "composer-plugin-api": "^2.0"
